@@ -1,0 +1,249 @@
+[
+  {
+    "id": "cat-1",
+    "name": "Electronics",
+    "description": "Gadgets, devices, and tech accessories",
+    "icon": "💻",
+    "productCount": 156,
+    "subcategories": [
+      {
+        "id": "subcat-1-1",
+        "name": "Phones & Tablets",
+        "description": "Smartphones, tablets, and accessories"
+      },
+      {
+        "id": "subcat-1-2", 
+        "name": "Laptops & Computers",
+        "description": "Laptops, desktops, and computer accessories"
+      },
+      {
+        "id": "subcat-1-3",
+        "name": "Audio & Headphones",
+        "description": "Headphones, speakers, and audio equipment"
+      },
+      {
+        "id": "subcat-1-4",
+        "name": "Cameras & Photography",
+        "description": "Digital cameras, lenses, and photo equipment"
+      },
+      {
+        "id": "subcat-1-5",
+        "name": "Gaming & VR",
+        "description": "Gaming consoles, VR headsets, and gaming accessories"
+      }
+    ]
+  },
+  {
+    "id": "cat-2",
+    "name": "Clothing",
+    "description": "Fashion for men, women, and kids",
+    "icon": "👕",
+    "productCount": 234,
+    "subcategories": [
+      {
+        "id": "subcat-2-1",
+        "name": "Men's Clothing",
+        "description": "Shirts, pants, jackets, and men's accessories"
+      },
+      {
+        "id": "subcat-2-2",
+        "name": "Women's Clothing", 
+        "description": "Dresses, tops, skirts, and women's accessories"
+      },
+      {
+        "id": "subcat-2-3",
+        "name": "Kids' Clothing",
+        "description": "Children's clothing and kids' accessories"
+      },
+      {
+        "id": "subcat-2-4",
+        "name": "Shoes & Footwear",
+        "description": "Sneakers, boots, sandals, and formal shoes"
+      },
+      {
+        "id": "subcat-2-5",
+        "name": "Accessories",
+        "description": "Bags, belts, hats, and fashion accessories"
+      }
+    ]
+  },
+  {
+    "id": "cat-3",
+    "name": "Home & Garden",
+    "description": "Everything for your home and garden",
+    "icon": "🏠",
+    "productCount": 189,
+    "subcategories": [
+      {
+        "id": "subcat-3-1",
+        "name": "Furniture",
+        "description": "Sofas, chairs, tables, and home furniture"
+      },
+      {
+        "id": "subcat-3-2",
+        "name": "Kitchen & Dining",
+        "description": "Cookware, appliances, and dining essentials"
+      },
+      {
+        "id": "subcat-3-3",
+        "name": "Bedroom & Bath",
+        "description": "Bedding, towels, and bathroom accessories"
+      },
+      {
+        "id": "subcat-3-4",
+        "name": "Garden & Outdoor",
+        "description": "Garden tools, outdoor furniture, and plants"
+      },
+      {
+        "id": "subcat-3-5",
+        "name": "Home Decor",
+        "description": "Decorations, lighting, and home accessories"
+      }
+    ]
+  },
+  {
+    "id": "cat-4",
+    "name": "Sports & Outdoors",
+    "description": "Equipment and gear for active lifestyle",
+    "icon": "⚽",
+    "productCount": 98,
+    "subcategories": [
+      {
+        "id": "subcat-4-1",
+        "name": "Fitness & Exercise",
+        "description": "Gym equipment, weights, and fitness accessories"
+      },
+      {
+        "id": "subcat-4-2",
+        "name": "Outdoor Recreation",
+        "description": "Camping gear, hiking equipment, and outdoor supplies"
+      },
+      {
+        "id": "subcat-4-3",
+        "name": "Team Sports",
+        "description": "Equipment for team sports and group activities"
+      },
+      {
+        "id": "subcat-4-4",
+        "name": "Water Sports",
+        "description": "Swimming, diving, and water sports equipment"
+      }
+    ]
+  },
+  {
+    "id": "cat-5",
+    "name": "Books & Media",
+    "description": "Books, movies, music, and games",
+    "icon": "📚",
+    "productCount": 267,
+    "subcategories": [
+      {
+        "id": "subcat-5-1",
+        "name": "Books",
+        "description": "Fiction, non-fiction, textbooks, and educational books"
+      },
+      {
+        "id": "subcat-5-2",
+        "name": "Movies & TV",
+        "description": "DVDs, streaming devices, and home entertainment"
+      },
+      {
+        "id": "subcat-5-3",
+        "name": "Music & Audio",
+        "description": "CDs, vinyl, musical instruments, and audio equipment"
+      },
+      {
+        "id": "subcat-5-4",
+        "name": "Video Games",
+        "description": "Console games, PC games, and gaming accessories"
+      }
+    ]
+  },
+  {
+    "id": "cat-6",
+    "name": "Toys & Games",
+    "description": "Fun for kids and adults",
+    "icon": "🎮",
+    "productCount": 145,
+    "subcategories": [
+      {
+        "id": "subcat-6-1",
+        "name": "Educational Toys",
+        "description": "Learning toys, STEM toys, and educational games"
+      },
+      {
+        "id": "subcat-6-2",
+        "name": "Action Figures & Dolls",
+        "description": "Collectible figures, dolls, and action toys"
+      },
+      {
+        "id": "subcat-6-3",
+        "name": "Board Games & Puzzles",
+        "description": "Family games, puzzles, and board game accessories"
+      },
+      {
+        "id": "subcat-6-4",
+        "name": "Video Games & Consoles",
+        "description": "Gaming consoles, video games, and gaming accessories"
+      }
+    ]
+  },
+  {
+    "id": "cat-7",
+    "name": "Health & Beauty",
+    "description": "Personal care and wellness products",
+    "icon": "💄",
+    "productCount": 178,
+    "subcategories": [
+      {
+        "id": "subcat-7-1",
+        "name": "Skincare",
+        "description": "Face creams, lotions, and skincare treatments"
+      },
+      {
+        "id": "subcat-7-2",
+        "name": "Makeup & Cosmetics",
+        "description": "Makeup, beauty tools, and cosmetic accessories"
+      },
+      {
+        "id": "subcat-7-3",
+        "name": "Hair Care",
+        "description": "Shampoos, conditioners, and hair styling products"
+      },
+      {
+        "id": "subcat-7-4",
+        "name": "Health & Wellness",
+        "description": "Vitamins, supplements, and wellness products"
+      }
+    ]
+  },
+  {
+    "id": "cat-8",
+    "name": "Automotive",
+    "description": "Parts, accessories, and tools",
+    "icon": "🚗",
+    "productCount": 67,
+    "subcategories": [
+      {
+        "id": "subcat-8-1",
+        "name": "Car Parts",
+        "description": "Engine parts, brakes, filters, and replacement parts"
+      },
+      {
+        "id": "subcat-8-2",
+        "name": "Accessories",
+        "description": "Floor mats, seat covers, and car accessories"
+      },
+      {
+        "id": "subcat-8-3",
+        "name": "Tools & Equipment",
+        "description": "Mechanic tools, diagnostic equipment, and garage supplies"
+      },
+      {
+        "id": "subcat-8-4",
+        "name": "Cleaning & Maintenance",
+        "description": "Car wash supplies, cleaning products, and maintenance items"
+      }
+    ]
+  }
+]
