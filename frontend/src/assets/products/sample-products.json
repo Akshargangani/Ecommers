@@ -1,0 +1,182 @@
+[
+  {
+    "id": "prod-1",
+    "name": "Premium Wireless Headphones",
+    "description": "High-quality wireless headphones with noise cancellation and premium sound quality.",
+    "price": 299.99,
+    "originalPrice": 399.99,
+    "category": "Electronics",
+    "subcategory": "Audio",
+    "brand": "TechBrand",
+    "rating": 4.5,
+    "reviews": 234,
+    "stock": 15,
+    "images": [
+      {
+        "url": "/images/headphones.jpg",
+        "alt": "Wireless Headphones",
+        "isMain": true
+      }
+    ],
+    "features": [
+      "Active Noise Cancellation",
+      "40-hour battery life",
+      "Bluetooth 5.0",
+      "Premium sound quality"
+    ],
+    "specifications": {
+      "Connectivity": "Bluetooth 5.0",
+      "Battery": "40 hours",
+      "Weight": "250g",
+      "Color": "Black"
+    },
+    "tags": ["wireless", "bluetooth", "noise-cancelling"],
+    "isNew": true,
+    "isFeatured": true,
+    "discount": 25
+  },
+  {
+    "id": "prod-2",
+    "name": "Smart Watch Pro",
+    "description": "Advanced smartwatch with health tracking and fitness features.",
+    "price": 349.99,
+    "originalPrice": 449.99,
+    "category": "Electronics",
+    "subcategory": "Wearables",
+    "brand": "TechBrand",
+    "rating": 4.3,
+    "reviews": 189,
+    "stock": 8,
+    "images": [
+      {
+        "url": "/images/watch.jpg",
+        "alt": "Smart Watch",
+        "isMain": true
+      }
+    ],
+    "features": [
+      "Heart rate monitoring",
+      "GPS tracking",
+      "Water resistant",
+      "7-day battery life"
+    ],
+    "specifications": {
+      "Display": "1.4\" AMOLED",
+      "Battery": "7 days",
+      "Water Resistance": "IP68",
+      "Compatibility": "iOS & Android"
+    },
+    "tags": ["smartwatch", "fitness", "health"],
+    "isNew": false,
+    "isFeatured": true,
+    "discount": 22
+  },
+  {
+    "id": "prod-3",
+    "name": "Professional Running Shoes",
+    "description": "Comfortable running shoes designed for performance and durability.",
+    "price": 129.99,
+    "originalPrice": 179.99,
+    "category": "Sports",
+    "subcategory": "Footwear",
+    "brand": "SportTech",
+    "rating": 4.7,
+    "reviews": 156,
+    "stock": 25,
+    "images": [
+      {
+        "url": "/images/shoes.jpg",
+        "alt": "Running Shoes",
+        "isMain": true
+      }
+    ],
+    "features": [
+      "Breathable mesh upper",
+      "Cushioned midsole",
+      "Durable outsole",
+      "Lightweight design"
+    ],
+    "specifications": {
+      "Material": "Mesh & Rubber",
+      "Weight": "280g",
+      "Available Sizes": "7-12",
+      "Color": "Blue/Black"
+    },
+    "tags": ["running", "athletic", "comfortable"],
+    "isNew": true,
+    "isFeatured": false,
+    "discount": 28
+  },
+  {
+    "id": "prod-4",
+    "name": "Ergonomic Laptop Stand",
+    "description": "Adjustable laptop stand for better ergonomics and productivity.",
+    "price": 79.99,
+    "originalPrice": 99.99,
+    "category": "Office",
+    "subcategory": "Accessories",
+    "brand": "OfficePro",
+    "rating": 4.6,
+    "reviews": 98,
+    "stock": 30,
+    "images": [
+      {
+        "url": "/images/stand.jpg",
+        "alt": "Laptop Stand",
+        "isMain": true
+      }
+    ],
+    "features": [
+      "Adjustable height",
+      "Sturdy construction",
+      "Cable management",
+      "Non-slip base"
+    ],
+    "specifications": {
+      "Material": "Aluminum",
+      "Height Range": "2-16 inches",
+      "Weight Capacity": "20kg",
+      "Compatibility": "All laptops"
+    },
+    "tags": ["ergonomic", "adjustable", "office"],
+    "isNew": false,
+    "isFeatured": false,
+    "discount": 20
+  },
+  {
+    "id": "prod-5",
+    "name": "Wireless Gaming Mouse",
+    "description": "High-precision gaming mouse with customizable RGB lighting.",
+    "price": 69.99,
+    "originalPrice": 89.99,
+    "category": "Electronics",
+    "subcategory": "Gaming",
+    "brand": "GameGear",
+    "rating": 4.4,
+    "reviews": 267,
+    "stock": 18,
+    "images": [
+      {
+        "url": "/images/headphones.jpg",
+        "alt": "Gaming Mouse",
+        "isMain": true
+      }
+    ],
+    "features": [
+      "16000 DPI sensor",
+      "RGB lighting",
+      "Programmable buttons",
+      "Wireless charging"
+    ],
+    "specifications": {
+      "DPI": "16000",
+      "Buttons": "6 programmable",
+      "Battery": "40 hours",
+      "Connection": "2.4GHz Wireless"
+    },
+    "tags": ["gaming", "wireless", "rgb"],
+    "isNew": true,
+    "isFeatured": true,
+    "discount": 22
+  }
+]
