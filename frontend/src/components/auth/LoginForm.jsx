@@ -14,7 +14,11 @@ const LoginForm = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  
+  // Check for remember me preference on mount
+  const [rememberMe, setRememberMe] = useState(() => {
+    return localStorage.getItem('rememberMe') === 'true';
+  });
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -32,10 +36,10 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      const result = await login(formData);
+      const result = await login(formData, rememberMe);
       
       if (result.success) {
-        toast.success('Login successful!');
+        toast.success('Login successful! Welcome back!');
         
         // Redirect based on user role
         if (result.user?.role === 'admin') {
@@ -44,11 +48,11 @@ const LoginForm = () => {
           navigate('/');
         }
       } else {
-        toast.error(result.error?.message || 'Login failed');
+        toast.error(result.error?.message || 'Login failed. Please try again.');
       }
     } catch (error) {
-      toast.error('An unexpected error occurred');
-      console.error('Login error:', error);
+      toast.error('Login failed. Please try again.');
+      // Silent error handling - no console logs
     } finally {
       setIsLoading(false);
     }
@@ -136,7 +140,10 @@ const LoginForm = () => {
                 name="remember-me"
                 type="checkbox"
                 checked={rememberMe}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setRememberMe(e.target.checked);
+                  handleChange(e);
+                }}
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
