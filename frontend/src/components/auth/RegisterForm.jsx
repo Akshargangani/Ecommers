@@ -38,17 +38,35 @@ const RegisterForm = () => {
     }
   };
 
+  // Add CSS animation styles
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+    if (!formData.name || formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
     }
 
-    if (!formData.email.trim()) {
+    if (!formData.email || formData.email.trim() === '') {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
     }
 
     if (!formData.password) {
@@ -56,6 +74,10 @@ const RegisterForm = () => {
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
+    // Remove strict password requirements for better UX
+    // else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+    //   newErrors.password = 'Password must contain uppercase, lowercase, and number';
+    // }
 
     if (!formData.confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
@@ -81,14 +103,14 @@ const RegisterForm = () => {
       const result = await register(registrationData);
       
       if (result.success) {
-        toast.success('Registration successful!');
+        toast.success('Registration successful! Welcome to our store!');
         navigate('/');
       } else {
-        toast.error(result.error?.message || 'Registration failed');
+        toast.error(result.error?.message || 'Registration failed. Please try again.');
       }
     } catch (error) {
-      toast.error('An unexpected error occurred');
-      console.error('Registration error:', error);
+      toast.error('Registration failed. Please try again.');
+      // Silent error handling - no console logs
     } finally {
       setIsLoading(false);
     }
@@ -136,14 +158,14 @@ const RegisterForm = () => {
                 autoComplete="name"
                 required
                 className={`appearance-none relative block w-full px-3 py-3 pl-10 border ${
-                  errors.name ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                  errors.name ? 'border-red-300 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'
+                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:z-10 sm:text-sm transition-colors duration-200`}
                 placeholder="Full name"
                 value={formData.name}
                 onChange={handleChange}
               />
               {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                <p className="mt-1 text-sm text-red-600 animate-fade-in">{errors.name}</p>
               )}
             </div>
 
@@ -161,14 +183,14 @@ const RegisterForm = () => {
                 autoComplete="email"
                 required
                 className={`appearance-none relative block w-full px-3 py-3 pl-10 border ${
-                  errors.email ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                  errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'
+                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:z-10 sm:text-sm transition-colors duration-200`}
                 placeholder="Email address"
                 value={formData.email}
                 onChange={handleChange}
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-1 text-sm text-red-600 animate-fade-in">{errors.email}</p>
               )}
             </div>
 
@@ -186,8 +208,8 @@ const RegisterForm = () => {
                 autoComplete="new-password"
                 required
                 className={`appearance-none relative block w-full px-3 py-3 pl-10 pr-10 border ${
-                  errors.password ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                  errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'
+                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:z-10 sm:text-sm transition-colors duration-200`}
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
@@ -204,7 +226,7 @@ const RegisterForm = () => {
                 )}
               </button>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                <p className="mt-1 text-sm text-red-600 animate-fade-in">{errors.password}</p>
               )}
             </div>
 
@@ -222,8 +244,8 @@ const RegisterForm = () => {
                 autoComplete="new-password"
                 required
                 className={`appearance-none relative block w-full px-3 py-3 pl-10 pr-10 border ${
-                  errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
-                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm`}
+                  errors.confirmPassword ? 'border-red-300 focus:border-red-500' : 'border-gray-300 focus:border-indigo-500'
+                } placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:z-10 sm:text-sm transition-colors duration-200`}
                 placeholder="Confirm password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -240,7 +262,7 @@ const RegisterForm = () => {
                 )}
               </button>
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
+                <p className="mt-1 text-sm text-red-600 animate-fade-in">{errors.confirmPassword}</p>
               )}
             </div>
           </div>
