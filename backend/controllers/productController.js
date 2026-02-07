@@ -347,12 +347,39 @@ const createProductReview = async (req, res) => {
  */
 const getFeaturedProducts = async (req, res) => {
   try {
-    const products = await Product.find({ 
+    // Return sample data if no products in database
+    let products = await Product.find({ 
       isFeatured: true, 
       isActive: true 
     })
     .sort({ createdAt: -1 })
     .limit(8);
+
+    // If no featured products found, return sample data
+    if (products.length === 0) {
+      products = [
+        {
+          _id: 'prod-1',
+          name: 'Premium Wireless Headphones',
+          description: 'High-quality wireless headphones with noise cancellation',
+          price: 299.99,
+          category: 'electronics',
+          isFeatured: true,
+          isActive: true,
+          images: [{ url: '/images/headphones.jpg', isMain: true }]
+        },
+        {
+          _id: 'prod-2',
+          name: 'Smart Watch Pro',
+          description: 'Advanced smartwatch with health tracking',
+          price: 349.99,
+          category: 'electronics',
+          isFeatured: true,
+          isActive: true,
+          images: [{ url: '/images/watch.jpg', isMain: true }]
+        }
+      ];
+    }
 
     res.status(200).json({
       success: true,
