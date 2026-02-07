@@ -105,49 +105,85 @@ export const AuthProvider = ({ children }) => {
 
   // Load user from token on app start
   useEffect(() => {
+    let mounted = true;
+    
     const loadUser = async () => {
       const token = localStorage.getItem('token');
-      if (token) {
+      const rememberMe = localStorage.getItem('rememberMe');
+      
+      if (token && mounted) {
         try {
           dispatch({ type: AUTH_ACTIONS.LOAD_USER_START });
           const response = await authAPI.getProfile();
-          dispatch({
-            type: AUTH_ACTIONS.LOAD_USER_SUCCESS,
-            payload: response.data,
-          });
+          if (mounted) {
+            dispatch({
+              type: AUTH_ACTIONS.LOAD_USER_SUCCESS,
+              payload: response.data,
+            });
+          }
         } catch (error) {
-          console.error('Load user error:', error);
-          dispatch({
-            type: AUTH_ACTIONS.LOAD_USER_FAILURE,
-            payload: 'Failed to load user data',
-          });
-          localStorage.removeItem('token');
-          localStorage.removeItem('userInfo');
+          // Silently handle auth errors
+          if (mounted) {
+            // Only clear token on 401 errors or if remember me is false
+            if (error.response?.status === 401 || !rememberMe) {
+              localStorage.removeItem('token');
+              localStorage.removeItem('userInfo');
+              localStorage.removeItem('rememberMe');
+            }
+            dispatch({
+              type: AUTH_ACTIONS.LOAD_USER_FAILURE,
+              payload: null, // No error message
+            });
+          }
         }
       }
     };
 
-    loadUser();
+    // Only load once, no timeout
+    if (mounted) {
+      loadUser();
+    }
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // Login function
-  const login = async (credentials) => {
+  const login = async (credentials, rememberMe = false) => {
     try {
       dispatch({ type: AUTH_ACTIONS.LOGIN_START });
       const response = await authAPI.login(credentials);
       
-      const { user, token } = response.data;
+      // Handle different response formats
+      let user, token;
+      if (response.data) {
+        // Backend returns { success: true, data: { user, token } }
+        user = response.data.user;
+        token = response.data.token;
+      } else {
+        // Backend returns { success: true, user, token }
+        user = response.user;
+        token = response.token;
+      }
       
       // Store token and user info in localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('userInfo', JSON.stringify(user));
+      
+      // Store remember me preference
+      if (rememberMe) {
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        localStorage.removeItem('rememberMe');
+      }
       
       dispatch({
         type: AUTH_ACTIONS.LOGIN_SUCCESS,
         payload: { user, token },
       });
       
-      return { success: true };
+      return { success: true, user };
     } catch (error) {
       const errorData = error.response?.data || { message: 'Login failed' };
       dispatch({
@@ -164,7 +200,17 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: AUTH_ACTIONS.REGISTER_START });
       const response = await authAPI.register(userData);
       
-      const { user, token } = response.data;
+      // Handle different response formats
+      let user, token;
+      if (response.data) {
+        // Backend returns { success: true, data: { user, token } }
+        user = response.data.user;
+        token = response.data.token;
+      } else {
+        // Backend returns { success: true, user, token }
+        user = response.user;
+        token = response.token;
+      }
       
       // Store token and user info in localStorage
       localStorage.setItem('token', token);
@@ -175,7 +221,7 @@ export const AuthProvider = ({ children }) => {
         payload: { user, token },
       });
       
-      return { success: true };
+      return { success: true, user };
     } catch (error) {
       const errorData = error.response?.data || { message: 'Registration failed' };
       dispatch({
