@@ -117,35 +117,51 @@ export const CartProvider = ({ children }) => {
 
   // Load cart from localStorage on component mount and sync with backend
   useEffect(() => {
+    let mounted = true;
+    
     const loadCart = async () => {
+      if (!mounted) return;
+      
+      // First try localStorage, then backend
       try {
-        // Try to load from backend first
-        const response = await cartAPI.getCart();
-        if (response.success) {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart && mounted) {
+          const cartData = JSON.parse(savedCart);
           dispatch({
             type: CART_ACTIONS.LOAD_CART,
-            payload: response.data.cartItems || response.data,
+            payload: cartData,
           });
         }
-      } catch (error) {
-        console.error('Error loading cart from backend:', error);
-        // Fallback to localStorage if backend fails
+      } catch (localError) {
+        console.error('Error loading cart from localStorage:', localError);
+      }
+
+      // Only try backend if user is authenticated
+      const token = localStorage.getItem('token');
+      if (token && mounted) {
         try {
-          const savedCart = localStorage.getItem('cart');
-          if (savedCart) {
-            const cartData = JSON.parse(savedCart);
+          const response = await cartAPI.getCart();
+          if (response.success && mounted) {
             dispatch({
               type: CART_ACTIONS.LOAD_CART,
-              payload: cartData,
+              payload: response.data.cartItems || response.data,
             });
           }
-        } catch (localError) {
-          console.error('Error loading cart from localStorage:', localError);
+        } catch (error) {
+          // Silently handle backend errors - no console logs
+          // Cart is already loaded from localStorage above
         }
       }
     };
 
-    loadCart();
+    // Only load once, no timeout
+    if (mounted) {
+      loadCart();
+    }
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // Save cart to localStorage whenever it changes
