@@ -85,6 +85,18 @@ const sampleProducts = [
  */
 const getCart = async (req, res) => {
   try {
+    // For development, return empty cart if user not authenticated
+    if (!req.user || !req.user.id) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          cartItems: [],
+          totalPrice: 0,
+          totalItems: 0
+        }
+      });
+    }
+
     let cart = await Cart.findOne({ user: new mongoose.Types.ObjectId(req.user.id) });
     
     if (!cart) {
@@ -108,9 +120,9 @@ const getCart = async (req, res) => {
             ...item.toObject(),
             product: sampleProduct || {
               _id: item.product,
-              name: 'Unknown Product',
-              price: 0,
-              inventory: { quantity: 0 }
+              name: 'Sample Product',
+              price: 29.99,
+              images: [{ url: '/images/placeholder.jpg', isMain: true }]
             }
           };
         }
