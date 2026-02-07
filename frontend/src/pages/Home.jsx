@@ -12,14 +12,20 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+    
     const fetchHomeData = async () => {
+      if (!mounted) return;
+      
       try {
         // Fetch featured products
         const featuredResponse = await productsAPI.getFeaturedProducts();
-        const featured = featuredResponse.data.length > 0 
-          ? featuredResponse.data.slice(0, 8)
-          : sampleProducts.filter(p => p.isFeatured).slice(0, 8);
-        setFeaturedProducts(featured);
+        if (mounted) {
+          const featured = featuredResponse.data.length > 0 
+            ? featuredResponse.data.slice(0, 8)
+            : sampleProducts.filter(p => p.isFeatured).slice(0, 8);
+          setFeaturedProducts(featured);
+        }
 
         // Fetch new products
         const newResponse = await productsAPI.getProducts({
@@ -27,21 +33,33 @@ const Home = () => {
           sortBy: 'createdAt',
           sortOrder: 'desc'
         });
-        const newProducts = newResponse.data.products?.length > 0
-          ? newResponse.data.products
-          : sampleProducts.slice(0, 8);
-        setNewProducts(newProducts);
+        if (mounted) {
+          const newProducts = newResponse.data.products?.length > 0
+            ? newResponse.data.products
+            : sampleProducts.slice(0, 8);
+          setNewProducts(newProducts);
+        }
       } catch (error) {
-        console.error('Error fetching home data:', error);
-        // Fallback to sample data on error
-        setFeaturedProducts(sampleProducts.filter(p => p.isFeatured).slice(0, 8));
-        setNewProducts(sampleProducts.slice(0, 8));
+        // Silently handle errors - use sample data
+        if (mounted) {
+          setFeaturedProducts(sampleProducts.filter(p => p.isFeatured).slice(0, 8));
+          setNewProducts(sampleProducts.slice(0, 8));
+        }
       } finally {
-        setIsLoading(false);
+        if (mounted) {
+          setIsLoading(false);
+        }
       }
     };
 
-    fetchHomeData();
+    // Only load once, no timeout
+    if (mounted) {
+      fetchHomeData();
+    }
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const features = [
