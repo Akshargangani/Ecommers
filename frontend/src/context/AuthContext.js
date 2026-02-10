@@ -206,14 +206,18 @@ export const AuthProvider = ({ children }) => {
       
       // Handle different response formats
       let user, token;
-      if (response.data) {
+      if (response.data && response.data.user) {
         // Backend returns { success: true, data: { user, token } }
         user = response.data.user;
         token = response.data.token;
-      } else {
+      } else if (response.data) {
+        // Backend returns { success: true, user, token }
+        user = response.data.user;
+        token = response.data.token;
+      } else if (response.user) {
         // Backend returns { success: true, user, token }
         user = response.user;
-        token = response.token;
+        token = response.data.token;
       }
       
       // Store token and user info in localStorage
@@ -227,7 +231,7 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true, user };
     } catch (error) {
-      const errorData = error.response?.data || { message: 'Registration failed' };
+      const errorData = error.response?.data || { message: 'Registration failed. Please try again.' };
       dispatch({
         type: AUTH_ACTIONS.REGISTER_FAILURE,
         payload: errorData.message,
