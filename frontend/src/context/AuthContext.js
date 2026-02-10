@@ -139,7 +139,7 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    // Only load once, no timeout
+// Only load once, no timeout
     if (mounted) {
       loadUser();
     }
