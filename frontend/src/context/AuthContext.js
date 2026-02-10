@@ -157,10 +157,14 @@ export const AuthProvider = ({ children }) => {
       
       // Handle different response formats
       let user, token;
-      if (response.data) {
+      if (response.data && response.data.user) {
         // Backend returns { success: true, data: { user, token } }
         user = response.data.user;
         token = response.data.token;
+      } else if (response.user) {
+        // Backend returns { success: true, user, token }
+        user = response.user;
+        token = response.token;
       } else {
         // Backend returns { success: true, user, token }
         user = response.user;
@@ -185,7 +189,7 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true, user };
     } catch (error) {
-      const errorData = error.response?.data || { message: 'Login failed' };
+      const errorData = error.response?.data || { message: 'Login failed. Please check your credentials.' };
       dispatch({
         type: AUTH_ACTIONS.LOGIN_FAILURE,
         payload: errorData.message,
